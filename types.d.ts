@@ -21,18 +21,12 @@ export const CustomerSchema = z.object({
 
 export type Customer = z.infer<typeof CustomerSchema>;
 
-type Step = "general" | "customer" | "review" | "end" | "processing";
-
 export type FieldError = {
     field: string;
     message: string;
 }
 
 export type QuotationState = {
-    step: Step;
-    loading: boolean;
-    totalAmount: number;
     general: GeneralInfo;
     customer: Customer;
-    errors: Array<FieldError>;
 }

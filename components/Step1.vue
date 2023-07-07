@@ -3,7 +3,7 @@
     import { useQuotation } from '~/composables/use-quotation';
     import { Quotation  } from '~/lib/quotation';
 
-    const { state } = useQuotation();
+    const { state, errors } = useQuotation();
 </script>
 
 <template>
@@ -15,7 +15,7 @@
             <label for="adults" class="text-xs uppercase pb-1 text-slate-400 font-semibold">Adults</label>
             <input type="number" name="adults" class="input" 
                 v-model="state.general.adults" />
-            <span class="text-sm text-red-400">{{ Quotation.checkError(state.errors, 'adults') }}</span>
+            <span class="text-sm text-red-400">{{ Quotation.checkError(errors, 'adults') }}</span>
         </div>
 
         <div class="flex flex-col">
@@ -23,7 +23,7 @@
             <input type="number" name="children" 
                 v-model="state.general.children"
                 class="input" />
-            <span class="text-sm text-red-400">{{ Quotation.checkError(state.errors, 'children') }}</span>
+            <span class="text-sm text-red-400">{{ Quotation.checkError(errors, 'children') }}</span>
         </div>
 
         <div class="flex flex-col">
@@ -31,7 +31,7 @@
             <input type="date" name="start" 
                 v-model="state.general.start"
                 class="input" />
-            <span class="text-sm text-red-400">{{ Quotation.checkError(state.errors, 'start') }}</span>
+            <span class="text-sm text-red-400">{{ Quotation.checkError(errors, 'start') }}</span>
         </div>
 
         <div class="flex flex-col">
@@ -39,7 +39,7 @@
             <input type="date" name="end" 
                 v-model="state.general.end"
                 class="input" />
-            <span class="text-sm text-red-400">{{ Quotation.checkError(state.errors, 'end') }}</span>
+            <span class="text-sm text-red-400">{{ Quotation.checkError(errors, 'end') }}</span>
         </div>
 
         <div class="flex flex-col">

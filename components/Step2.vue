@@ -3,7 +3,7 @@
     import { useQuotation } from '~/composables/use-quotation';
     import { Quotation  } from '~/lib/quotation';
 
-    const { state } = useQuotation();
+    const { state, errors } = useQuotation();
 </script>
 
 <template>
@@ -15,21 +15,21 @@
             <label for="firstName" class="text-xs uppercase pb-1 text-slate-400 font-semibold">First Name</label>
             <input type="text" name="firstName" class="input"
                 v-model="state.customer.firstName" />
-            <span class="text-sm text-red-400">{{ Quotation.checkError(state.errors, 'firstName') }}</span>
+            <span class="text-sm text-red-400">{{ Quotation.checkError(errors, 'firstName') }}</span>
         </div>
 
         <div class="flex flex-col">
             <label for="lastName" class="text-xs uppercase pb-1 text-slate-400 font-semibold">Last Name</label>
             <input type="text" name="lastName" class="input"
                 v-model="state.customer.lastName" />
-            <span class="text-sm text-red-400">{{ Quotation.checkError(state.errors, 'lastName') }}</span>
+            <span class="text-sm text-red-400">{{ Quotation.checkError(errors, 'lastName') }}</span>
         </div>
 
         <div class="flex flex-col">
             <label for="email" class="text-xs uppercase pb-1 text-slate-400 font-semibold">E-mail</label>
             <input type="email" name="email" class="input"
                 v-model="state.customer.email" />
-            <span class="text-sm text-red-400">{{ Quotation.checkError(state.errors, 'email') }}</span>
+            <span class="text-sm text-red-400">{{ Quotation.checkError(errors, 'email') }}</span>
         </div>
 
         <div class="flex flex-col">

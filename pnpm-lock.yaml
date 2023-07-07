@@ -8,6 +8,9 @@ dependencies:
   ts-pattern:
     specifier: ^5.0.1
     version: 5.0.1
+  xstate:
+    specifier: ^4.38.0
+    version: 4.38.0
   zod:
     specifier: ^3.21.4
     version: 3.21.4
@@ -6598,6 +6601,10 @@ packages:
       utf-8-validate:
         optional: true
     dev: true
+
+  /xstate@4.38.0:
+    resolution: {integrity: sha512-oFjw2YZPyu6HeO0JWCSqfhAALsjFPURsrD2FUFN3u213dWwYU68RFuLtSHco+cEUhpQFW+hRG3PNYgq8HatudQ==}
+    dev: false
 
   /xtend@4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}

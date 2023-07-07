@@ -11,24 +11,19 @@ import { match } from "ts-pattern";
 
 export namespace Quotation {
     // calculate the total amount for quotation
-    export function hasErrors(state: QuotationState): boolean {
-        return (state.errors && state.errors.length > 0);
-    }
+    // export function hasErrors(state: QuotationState): boolean {
+    //     return (state.errors && state.errors.length > 0);
+    // }
 
     export function calculate(state: QuotationState): Promise<number> {
         const { adults, children, plan } = state.general;
-        state.loading = true;
         return post('/api/calculate', { adults, children, plan })
-            .then(res => res.amount)
-            .finally(() => state.loading = false);
+            .then(res => res.amount);
     }
 
     export function requestQuote(state: QuotationState): Promise<unknown> {
-        const { general, customer } = state;
-        state.loading = true;
-        return post('/api/quotation', { general, customer })
-            .then(res => res)
-            .finally(() => state.loading = false);
+        return post('/api/quotation', { ...state })
+            .then(res => res);
     }
 
     // get the plan name based on value

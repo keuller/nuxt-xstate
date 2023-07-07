@@ -3,7 +3,7 @@
     import { useQuotation } from '~/composables/use-quotation';
     import StepHeader from '~/components/StepHeader.vue';
 
-    const { state } = useQuotation();
+    const { state, totalAmount } = useQuotation();
 </script>
 
 <template>
@@ -60,7 +60,7 @@
 
         <div class="flex items-center justify-between col-span-2 border border-transparent border-t-slate-400 py-2">
             <span class="font-semibold text-slate-300 uppercase">Total Amount</span>
-            <span class="font-bold text-slate-300">{{ state.totalAmount.toFixed(2) }}</span>
+            <span class="font-bold text-slate-300">{{ totalAmount.toFixed(2) }}</span>
         </div>
     </div>
 </div>
