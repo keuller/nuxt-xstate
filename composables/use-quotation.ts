@@ -29,18 +29,15 @@ export function useQuotation() {
 
     onMounted(() => service.start());
 
-    service.onTransition((state) => {
-        stateFlow.value = state;
-        stateFlow.value.context.processing = state.hasTag('processing');
-    });
+    service.onTransition((state) => stateFlow.value = state);
 
     return {
         state,
         step: computed(() => stateFlow.value.value),
         showButtons: computed(() => BUTTON_STEPS.includes(stateFlow.value.value)),
         errors: computed(() => stateFlow.value.context.errors),
-        totalAmount: computed(() => stateFlow.value.context.totalAmount),
         isProcessing: computed(() => stateFlow.value.context.processing),
+        totalAmount: computed(() => stateFlow.value.context.totalAmount),
         next: () => service.send({ type: 'NEXT', data: state }),
         previous: () => service.send('PREVIOUS')
     }

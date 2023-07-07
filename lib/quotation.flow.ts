@@ -25,6 +25,7 @@ export const initialContext = {
 }
 
 const quotationMachine = createMachine<QuotationContext, QuotationEvents>({
+    /** @xstate-layout N4IgpgJg5mDOIC5QEcCuB7ALgQ0wS3QDsBaAMwBt0B3AOhkLACdtyBiAOQFEANAFQG0ADAF1EoAA7pYefETEgAHogBsAJgDsNAJzKAzAFYDugCwbBARnMAaEAE9EqgByCax08q2rj+5ccG7BfQBfIJs0LFwCEgpqGgBjVFhMdABbJg4eARF5SWlZQnklBDVNHSNDU3ULaztEfVVzbV1VDUstQVVddVUQsIwcfLJKWgSk1PSABQAlTgA1AEkAeQBVAGUhUSQQXJkowsR1eppdcy9Dz2V9R1V9G3sEFq1tQ0sulp9HR2NekHCBqKGsTiLAS5FwYAAiv1IkRWBAiGAaHhCAA3dAAa0Rfxh0WG8RBqDBmEh0PyCGRaOB+Q2GxyUl2ci2RVUWmMNFUgkCN26XXU6kcd0Q5kCNHMykcynMzn0wuUai0P2xgxiIwJRJJEXyrCYjHQjBo4iJpD1KRoSoBKvx5FB4Khmqi5NR6CpURp2S2O3y+werPZnPq+h5fP5goQflUNHFjnMJ3MMvqxjjitJFrxjDAKLwYCoGT4tI99K9TJUGm0ekMFTMllDp0c2nUui0PhuxnagW+oV+KaIgNo6cz2dY0zmSzW+Ykhb2xeKpbKFZMVZq93M6iexnLJi0nwbxnUyftPctsFQACMUjI7f9YfCGEinZizd3cbFj2eL0-HZScW7NhO8lPQCKSx9DZPktDbCw-AsVQaxXGhBGUQQdC0YUWScQRHH3K9n1oV9z0wS8cW1RhdX1Q1cGNRhTXNQ88Tw98D0IT9nW-ERx22SdGUAlRnG0bxVDlRD+VbLRQ2jVxHB8dRJT5Xc3F0EJO0IdAIDgeQaJwul-y4xREGIZRQ30+DORM0yTPMDs+kY3s6DABhmHILSGQKacZTZEwuhea4ql0UMNAjCVhR0EzpMsrtrMtUZkjSRgnKLbiEE8RoxTlXQTF3AxfFDfRBE0VDEzFU40LCjSbOBa1CVtJ84oA3Swxg2oEF0XiPBjGTWyqYMsJxGz+yzKgap0op6hcRsvnDRxpMCAVGtOZR60bZsQLbEDuuVOjT3wwj4o47SXISpLRUEtK3AbHxjFDTwaHO8xwKqSxLD3TtSstOyIEG-a6ra+a0quaM9BXCzYLZaMDBy04RPcRSgiAA */
     id: 'quotation-flow',
     context: initialContext,
     initial: 'general',
@@ -49,15 +50,16 @@ const quotationMachine = createMachine<QuotationContext, QuotationEvents>({
             }
         },
         calculateQuotation: {
+            entry: ['startProcessing'],
             invoke: {
                 src: 'calculateQuotation',
                 onError: { target: 'customer' },
-                onDone: { 
+                onDone: {
                     target: 'review',
                     actions: ['updateTotalAmount']
                 }
             },
-            tags: ['processing']
+            exit: ['endProcessing']
         },
         review: {
             on: {
@@ -70,12 +72,13 @@ const quotationMachine = createMachine<QuotationContext, QuotationEvents>({
             }
         },
         submitQuotation: {
+            entry: ['startProcessing'],
             invoke: {
-                src: 'requestQuotation',
+                src: 'submitQuotation',
                 onError: { target: 'review' },
                 onDone: { target: 'end' }
             },
-            tags: ['processing']
+            exit: ['endProcessing']
         },
         end: {
             type: 'final'
@@ -85,27 +88,31 @@ const quotationMachine = createMachine<QuotationContext, QuotationEvents>({
     actions: {
         updateTotalAmount: assign({
             totalAmount: (_, event) => (event as AMOUNT).data
-        })
+        }),
+        startProcessing: assign({ processing: true }),
+        endProcessing: assign({ processing: false }),
     },
 
     guards: {
         validateGeneralInfo(context, event) {
             const { general } = (event as NEXT).data;
             context.errors = Quotation.validateGeneral(general);
-            return (context.errors && context.errors.length === 0);
+            return (context.errors.length === 0);
         },
+
         validateCustomerInfo(context, event) {
             const { customer } = (event as NEXT).data;
             context.errors = Quotation.validateCustomer(customer);
-            return (context.errors && context.errors.length === 0);
+            return (context.errors.length === 0);
         }
     },
 
     services: {
-        calculateQuotation(_, event) {
+        calculateQuotation(context, event) {
             return Quotation.calculate((event as NEXT).data);
         },
-        requestQuotation(_, event) {
+
+        submitQuotation(context, event) {
             return Quotation.requestQuote((event as NEXT).data);
         }
     }
