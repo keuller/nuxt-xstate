@@ -1,0 +1,61 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "paths": {
+      "#imports": [
+        "/Users/keuller/workspace/personal/nuxt-xstate/.nuxt/types/nitro-imports"
+      ],
+      "#paths": [
+        "/Users/keuller/workspace/personal/nuxt-xstate/node_modules/.pnpm/nuxt@3.6.2_@types+node@18.16.19_typescript@5.1.6/node_modules/nuxt/dist/core/runtime/nitro/paths"
+      ],
+      "~": [
+        "/Users/keuller/workspace/personal/nuxt-xstate"
+      ],
+      "~/*": [
+        "/Users/keuller/workspace/personal/nuxt-xstate/*"
+      ],
+      "@": [
+        "/Users/keuller/workspace/personal/nuxt-xstate"
+      ],
+      "@/*": [
+        "/Users/keuller/workspace/personal/nuxt-xstate/*"
+      ],
+      "~~": [
+        "/Users/keuller/workspace/personal/nuxt-xstate"
+      ],
+      "~~/*": [
+        "/Users/keuller/workspace/personal/nuxt-xstate/*"
+      ],
+      "@@": [
+        "/Users/keuller/workspace/personal/nuxt-xstate"
+      ],
+      "@@/*": [
+        "/Users/keuller/workspace/personal/nuxt-xstate/*"
+      ],
+      "assets": [
+        "/Users/keuller/workspace/personal/nuxt-xstate/assets"
+      ],
+      "public": [
+        "/Users/keuller/workspace/personal/nuxt-xstate/public"
+      ],
+      "public/*": [
+        "/Users/keuller/workspace/personal/nuxt-xstate/public/*"
+      ]
+    }
+  },
+  "include": [
+    "/Users/keuller/workspace/personal/nuxt-xstate/.nuxt/types/nitro-nuxt.d.ts",
+    "./types/nitro.d.ts",
+    "../**/*",
+    "../server/**/*"
+  ]
+}

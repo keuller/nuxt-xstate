@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    @apply flex flex-col h-screen w-full;
+    background-color: #35435f;
+    margin: 0;
+    padding: 0;
+}
+
+.input {
+    @apply px-4 py-2 text-sm bg-slate-600 text-gray-300 outline-none rounded focus:ring-1 focus:ring-indigo-400;
+}
+
+.btn {
+    @apply w-36 py-2 text-sm text-slate-300 uppercase bg-slate-800 transition-opacity duration-200 border border-slate-300 rounded-md bg-gradient-to-r hover:text-white hover:border-transparent hover:bg-cyan-500 hover:from-cyan-500 hover:to-blue-500;
+}
+
+.btn:disabled {
+    @apply bg-slate-800 text-slate-500 border-slate-500 hover:from-slate-800 hover:to-slate-800;
+}
+
+.spinner {
+    transform-origin:center;
+    animation:spinner_y6GP .75s linear infinite
+}
+
+@keyframes spinner_y6GP{
+    100%{transform:rotate(360deg)}
+}
